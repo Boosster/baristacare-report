@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>State of Coffee Machine Maintenance 2026</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      max-width: 720px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      color: #2d2926;
+      background: #f8f4f0;
+    }
+    h1, h2, h3 {
+      margin-top: 2rem;
+      color: #5a4a42;
+    }
+    h1 {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: 1.4rem;
+      border-bottom: 1px solid #e8dfcf;
+      padding-bottom: 0.3rem;
+    }
+    p, ul, ol {
+      margin-bottom: 1.2rem;
+    }
+    .cover {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e8dfcf;
+      color: #7a7570;
+      font-size: 0.9rem;
+    }
+    blockquote {
+      border-left: 3px solid #e8dfcf;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      color: #5a4a42;
+      font-style: italic;
+    }
+    
+    /* === СТИЛИ ДЛЯ ГРАФИКОВ === */
+    .chart-container {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .chart-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #5a4a42;
+      font-size: 1rem;
+    }
+    
+    /* Горизонтальная гистограмма */
+    .bar-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .bar-label {
+      width: 120px;
+      font-size: 0.9rem;
+      color: #5a4a42;
+    }
+    .bar-wrapper {
+      flex: 1;
+      height: 24px;
+      background: #f0ece7;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: #c17b4c;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    /* Круговая диаграмма (простая) */
+    .pie-container {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .pie {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(#c17b4c 0deg 180deg, #e8dfcf 180deg 360deg);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .pie-legend {
+      flex: 1;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+    .legend-color.contaminated { background: #c17b4c; }
+    .legend-color.clean { background: #e8dfcf; }
+    
+    /* Временная шкала */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #e8dfcf;
+      z-index: 0;
+    }
+    .timeline-day {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+    .timeline-marker {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #c17b4c;
+      margin: 0 auto 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #c17b4c;
+    }
+    .timeline-day.overdue .timeline-marker {
+      background: #c17b4c;
+      color: white;
+    }
+    .timeline-label {
+      font-size: 0.8rem;
+      color: #7a7570;
+    }
+    .timeline-desc {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cover">
+    <h1>State of Coffee Machine Maintenance 2026</h1>
+    <p><em>Hygiene, Downtime, and the Case for Transparent Maintenance</em></p>
+    <p>Prepared by BaristaCare • February 2026</p>
+  </div>
+
+  <h2>Executive Summary</h2>
+  <p>Commercial coffee machines in cafés and restaurants across the U.S. and Europe face a hidden crisis: poor maintenance leads to microbial contamination, equipment downtime, and lost revenue.</p>
+  <p>Despite rising demand for specialty coffee (46% of U.S. adults drink it daily, NCA 2025), only 30–40% of establishments perform regular deep cleaning. Bacteria, mold, and biofilm thrive in neglected machines — especially in steam wands, drip trays, and water reservoirs.</p>
+  <p>The cost? Up to <strong>$2,000/month in lost sales</strong> due to avoidable downtime. And even when cleaned, there’s no way for guests — or owners — to verify it happened.</p>
+  <p>This report synthesizes data from NCA, SCA, NSF, Mordor Intelligence, and industry publications (2025–2026) to outline the real state of coffee machine hygiene — and a practical path forward.</p>
+
+  <h2>Key Findings</h2>
+
+  <h3>Market Context</h3>
+  <ul>
+    <li>Europe’s commercial coffee machine market is growing at 3.2–6.64% CAGR through 2033 (Cognitive Market Research).</li>
+    <li>The U.S. and Europe account for ~60% of global automated espresso machine sales (Intel Market Research, 2026).</li>
+    <li>Specialty coffee consumption is mainstream: 46% of U.S. adults drink it daily (NCA 2025).</li>
+  </ul>
+
+  <h3>Maintenance Reality</h3>
+  <ul>
+    <li>Average deep-clean interval in cafés: <strong>1–4 weeks</strong>.</li>
+    <li>But 65%+ of professionals say it should be done <strong>weekly</strong> (Perfect Daily Grind, 2025).</li>
+    <li>Only 30–40% of cafés perform full disassembly and sanitization regularly.</li>
+  </ul>
+
+  <!-- ГРАФИК 1: Круговая диаграмма "50% машин заражены" -->
+  <div class="chart-container">
+    <div class="chart-title">📊 Microbial Contamination in Commercial Coffee Machines</div>
+    <div class="pie-container">
+      <div class="pie"></div>
+      <div class="pie-legend">
+        <div class="legend-item">
+          <span class="legend-color contaminated"></span>
+          <span><strong>50%</strong> show mold, yeast, or bacteria</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color clean"></span>
+          <span><strong>50%</strong> visibly clean (at time of test)</span>
+        </div>
+        <p style="font-size:0.8rem; color:#7a7570; margin-top:0.5rem;">Source: NSF International / Nature studies 2015–2025</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Microbial Risk</h3>
+  <ul>
+    <li>NSF and Nature studies (2015–2025) confirm: <strong>over 50% of machines</strong> harbor mold, yeast, or bacteria.</li>
+    <li>Steam wands and group heads are hotspots for pathogens (including E. coli and Salmonella in rare cases).</li>
+    <li>One study identified up to <strong>67 bacterial strains</strong> in a single machine.</li>
+  </ul>
+
+  <h3>Cost of Neglect</h3>
+  <ul>
+    <li>Maintenance accounts for <strong>15–20% of total cost of ownership</strong> (Fortune Business Insights).</li>
+    <li>Poor cleaning causes <strong>1–3 days of downtime per month</strong> in small cafés.</li>
+    <li>Estimated revenue loss: <strong>$500–$2,000+/month</strong> (Mordor Intelligence, 2026).</li>
+  </ul>
+
+  <!-- ГРАФИК 2: Сравнение затрат -->
+  <div class="chart-container">
+    <div class="chart-title">💰 Monthly Cost: Maintenance vs. Downtime (Small Café)</div>
+    <div class="bar-item">
+      <span class="bar-label">Maintenance</span>
+      <div class="bar-wrapper">
+        <div class="bar-fill" style="width: 20%;">$200</div>
+      </div>
+    </div>
+    <div class="bar-item">
+      <span class="bar-label">Downtime (lost sales)</span>
+      <div class="bar-wrapper">
+        <div class="bar-fill" style="width: 80%; background: #a65a3c;">$1,200</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:#7a7570; margin-top:0.5rem;">Based on average café revenue $4,000–6,000/month. Source: Mordor Intelligence 2026</p>
+  </div>
+
+  <h3>Operational Challenges</h3>
+  <ul>
+    <li>Labor shortages → less frequent cleaning.</li>
+    <li>EU Right-to-Repair Directive (2024–2026) increases service costs.</li>
+    <li>Fluctuating bean prices and tariffs squeeze margins → maintenance deprioritized.</li>
+  </ul>
+
+  <h2>Recommendations</h2>
+
+  <h3>Daily / Weekly</h3>
+  <ul>
+    <li>Backflush group heads</li>
+    <li>Purge and wipe steam wands after each use</li>
+    <li>Empty and rinse drip trays & grounds bins</li>
+    <li>Discard standing water in reservoirs</li>
+  </ul>
+  <p>→ Reduces microbial load by 70–80%.</p>
+
+  <h3>Monthly / Quarterly</h3>
+  <ul>
+    <li>Full descaling with food-safe acid</li>
+    <li>Replace gaskets, shower screens, and seals</li>
+    <li>Schedule professional service ($200–$500/visit in the U.S.)</li>
+  </ul>
+  <p>→ Prevents 50% of avoidable downtime.</p>
+
+  <blockquote>
+    “How do your guests know you cleaned the machine? Trust isn’t enough — proof is.”
+  </blockquote>
+
+  <h3>Tooling for Compliance</h3>
+  <p>Studies on preventive maintenance show that <strong>visible tracking increases compliance by 40–60%</strong>. Digital logs, QR codes, and public status pages close the “trust gap” between staff action and customer perception.</p>
+
+  <!-- ГРАФИК 3: Таймлайн "Что происходит без чистки" -->
+  <div class="chart-container">
+    <div class="chart-title">⏳ What Happens Without Cleaning (1–7 Days)</div>
+    <div class="timeline">
+      <div class="timeline-day">
+        <div class="timeline-marker">1</div>
+        <div class="timeline-label">Day 1</div>
+        <div class="timeline-desc">Oil buildup</div>
+      </div>
+      <div class="timeline-day">
+        <div class="timeline-marker">3</div>
+        <div class="timeline-label">Day 3</div>
+        <div class="timeline-desc">Biofilm starts</div>
+      </div>
+      <div class="timeline-day">
+        <div class="timeline-marker">5</div>
+        <div class="timeline-label">Day 5</div>
+        <div class="timeline-desc">Mold visible</div>
+      </div>
+      <div class="timeline-day overdue">
+        <div class="timeline-marker">7</div>
+        <div class="timeline-label">Day 7</div>
+        <div class="timeline-desc">⚠️ Overdue</div>
+      </div>
+    </div>
+    <p style="font-size:0.8rem; color:#7a7570; margin-top:1rem;">Based on La Marzocco & Jura service guidelines</p>
+  </div>
+
+  <h2>A Practical Alternative to SaaS</h2>
+  <p>Most digital solutions require monthly subscriptions — adding cost without solving the core issue: <strong>verifiable proof</strong>.</p>
+  <p><strong>BaristaCare</strong> offers a one-time, lifetime alternative:</p>
+  <ul>
+    <li>Public QR code showing last clean date</li>
+    <li>Email & Telegram reminders</li>
+    <li>Google Sheets log (you own your data)</li>
+    <li>No servers, no subscriptions, no lock-in</li>
+  </ul>
+  <p>Pricing: $19 (1–3 machines) or $49 (4–20 machines). Includes personal setup support.</p>
+  <p>For baristas who believe trust is earned — not claimed.</p>
+  <p>👉 <a href="https://boosster.github.io/baristacare/">Learn more at baristacare.status</a></p>
+
+  <h2>Appendix: Sources (2025–2026)</h2>
+  <ul>
+    <li>National Coffee Association (NCA) – National Coffee Data Trends 2025</li>
+    <li>Specialty Coffee Association (SCA) – Maintenance Best Practices</li>
+    <li>NSF International – Microbial Studies in Beverage Equipment</li>
+    <li>Nature Journal – Biofilm Formation in Domestic & Commercial Machines (2015–2025)</li>
+    <li>Mordor Intelligence – Coffee Machine Market Reports 2026</li>
+    <li>Fortune Business Insights – TCO Analysis</li>
+    <li>Perfect Daily Grind – Industry Surveys & Operator Polls</li>
+    <li>La Marzocco & Jura Official Blogs – Service Recommendations</li>
+  </ul>
+
+  <div class="footer">
+    <p>© 2026 BaristaCare. All rights reserved.<br>
+    Prepared by Fedor Chabanov • chabanov2007@gmail.com<br>
+    Made with honesty, for baristas who care.</p>
+  </div>
+
+</body>
+</html>
